@@ -1,20 +1,33 @@
 .div1
 {
   position: relative;
-  left: 500px;
-  top: -500px;
-  width: 200px;
+  left: 530px;
+  top: -520px;
+  width: 400px;
   height: 200px;
-  background-color: lightskyblue;
+  /*background-color: lightskyblue;*/
   color: black;
 }
 .div2
 {
   position: relative;
-  left: 800px;
-  top: -700px;
+  left: 980px;
+  top: -720px;
   width: 200px;
   height: 200px;
   /*background-color: lightskyblue;*/
   color: black;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-name {
+  margin-right: 10px;
+}
+.card
+{
+  background-image: linear-gradient(to bottom right, #FDFCFB, #E2D1C3);
 }

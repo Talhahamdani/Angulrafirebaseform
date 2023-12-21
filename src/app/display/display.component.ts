@@ -8,36 +8,51 @@ import {DataService} from "../data.service";
   styleUrls: ['./display.component.css']
 })
 export class DisplayComponent implements OnInit{
-  categories:any;
-  // categoryList:any;
-  formData: any;
-  // products: any[] = [];
-  // searchTerm: string = '';
+  categories: any[] = [];
+  formData: any[] = [];
+  filteredData: any[] = [];
+  searchTerm: string = '';
 
-  constructor(private dataService: DataService ,private catService:CategoryService) {}
-
-  ngOnInit(): void {
-
-    this.dataService.myFormData.subscribe(data => {
-      this.formData = data;
-      console.log(this.formData)
-    });
-
-    this.catService.mycategories.subscribe(newCategories => {
-      // Update the local variable by prepending new categories to the existing list
-      this.categories = [...newCategories, ...this.categories];
-
-    });
-
-    const storedCategories = localStorage.getItem('categories');
-    this.categories = storedCategories ? JSON.parse(storedCategories) : [];
+  constructor(private dataService: DataService, private catService: CategoryService) {}
 
 
+    ngOnInit(): void {
+      this.dataService.myFormData.subscribe(newData => {
+        if (!Array.isArray(this.formData)) {
+          this.formData = [];
+        }
+        this.formData.push(newData);
+        this.searchProducts();
+        console.log(this.formData);
+      });
+
+      this.catService.mycategories.subscribe(newCategories => {
+        this.categories = [...this.categories, ...newCategories];
+      });
+
+      const storedCategories = localStorage.getItem('categories');
+      this.categories = storedCategories ? JSON.parse(storedCategories) : [];
+    }
+
+    deleteProduct(num: number): void {
+      if (this.formData.length) {
+      this.formData.splice(num, 1);
+      this.searchProducts();
+    }
   }
-  removeCategory(categoryToRemove: string): void {
 
-    this.categories = this.categories.filter((category) => category !== categoryToRemove);
-
+    searchProducts(): void {
+      if (this.formData) {
+      this.filteredData = this.formData.filter(product =>
+        product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredData = [];
+    }
   }
 
+    clearSearch(): void {
+      this.searchTerm = '';
+      this.searchProducts();
+    }
 }

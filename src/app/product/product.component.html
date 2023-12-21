@@ -1,3 +1,5 @@
+<div id="divm">
+  <div id="all">
 <h1>Products</h1>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
@@ -11,14 +13,14 @@
 
   <mat-form-field>
     <mat-label>Price</mat-label>
-    <input matInput formControlName="price">
+    <input type="number" matInput formControlName="price">
   </mat-form-field>
   <span *ngIf="priceControl.invalid && priceControl.touched" style="color: red">
       *Price is required
     </span>
   <br>
 
-  <mat-form-field>
+  <mat-form-field class="cat">
     <mat-label>Category</mat-label>
     <mat-select formControlName="category">
       <mat-option *ngFor="let category of categories" [value]="category">{{ category }}
@@ -29,7 +31,9 @@
       *Category is required
     </span>
   <br>
-  <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Submit</button>
+  <button class="mybtn" mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Submit</button>
 </form>
 <br><br>
 <app-category></app-category>
+  </div>
+</div>

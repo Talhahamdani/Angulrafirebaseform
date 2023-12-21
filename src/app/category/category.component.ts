@@ -27,6 +27,7 @@ export class CategoryComponent implements OnInit{
       const catName = this.catNameControl.value;
       const categories: string[] = [catName];
       this.categoryService.setCategories(categories);
+      this.categoryForm.reset();
     } else {
       this.categoryForm.markAllAsTouched();
     }

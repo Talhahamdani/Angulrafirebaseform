@@ -10,9 +10,8 @@ import {DataService} from "../data.service";
 })
 export class ProductComponent implements OnInit{
   productForm: FormGroup;
-  categories: any;
-  selectedCategory: any;
-  submittedData: any;
+  categories: any=[]
+
 
   constructor(private fb: FormBuilder,private categoryService: CategoryService,private dataService: DataService) {}
 
@@ -36,8 +35,8 @@ export class ProductComponent implements OnInit{
     });
 
     this.categoryService.mycategories.subscribe(newCategories => {
-      // Update the local variable by prepending new categories to the existing list
-      this.categories = [...newCategories, ...this.categories];
+
+      this.categories = [...this.categories,...newCategories];
 
     });
 
@@ -49,6 +48,7 @@ export class ProductComponent implements OnInit{
       const formData = this.productForm.value;
       // this.submittedData.push(formData);
       this.dataService.setFormData(formData);
+      this.productForm.reset();
     } else {
       this.productForm.markAllAsTouched();
     }
@@ -56,7 +56,7 @@ export class ProductComponent implements OnInit{
 
   removeCategory(categoryToRemove: string): void {
 
-    this.categories = this.categories.filter((category) => category !== categoryToRemove);
+    this.categories = this.categories.filter((category: string) => category !== categoryToRemove);
 
   }
 }
