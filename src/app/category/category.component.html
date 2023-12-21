@@ -1,0 +1,14 @@
+<h1>Category</h1>
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Category Name</mat-label>
+    <input matInput formControlName="catName">
+  </mat-form-field>
+  <span *ngIf="catNameControl.invalid && catNameControl.touched" style="color: red">
+      *CategoryName is required
+    </span>
+   <br>
+  <button mat-raised-button color="primary" type="submit">
+    Submit
+  </button>
+</form>

@@ -1,0 +1,24 @@
+<div class="div1">
+  <h2>Display Component</h2>
+<!--  <input type="text" [(ngModel)]="searchTerm" placeholder="Enter search term">-->
+<!--  <button (click)="onSearch()">Search</button>-->
+<div *ngIf="formData">
+<!--<h2>Display Component</h2>-->
+<p>Name: {{ formData.name }}</p>
+<p>Price: {{ formData.price }}</p>
+<p>Category: {{ formData.category }}</p>
+</div>
+</div>
+<div class="div2">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Category List</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let category of categories">{{ category }}</li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</div>
