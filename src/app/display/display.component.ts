@@ -51,8 +51,4 @@ export class DisplayComponent implements OnInit{
     }
   }
 
-    clearSearch(): void {
-      this.searchTerm = '';
-      this.searchProducts();
-    }
 }

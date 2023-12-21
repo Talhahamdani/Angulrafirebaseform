@@ -2,6 +2,7 @@
   <mat-card class="card" >
     <mat-form-field>
       <input matInput placeholder="Search by Name" [(ngModel)]="searchTerm" (input)="searchProducts()">
+      <button id="sbtn" mat-raised-button>Search</button>
     </mat-form-field>
     <mat-card-header>
       <mat-card-title>Product List</mat-card-title>
@@ -26,9 +27,9 @@
 <!--&lt;!&ndash;  <button (click)="onSearch()">Search</button>&ndash;&gt;-->
 <!--<div *ngFor="let arr of formData">-->
 <!--&lt;!&ndash;<h2>Display Component</h2>&ndash;&gt;-->
-<!--<p>{{ arr?.name }}</p>-->
-<!--<p>{{ arr?.price }}</p>-->
-<!--<p>{{ arr?.category }}</p>-->
+<!--<p>{{ arr.name }}</p>-->
+<!--<p>{{ arr.price }}</p>-->
+<!--<p>{{ arr.category }}</p>-->
 <!--</div>-->
 <!--</div>-->
 <div class="div2">
