@@ -5,7 +5,7 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class DataService {
-  private formData = new BehaviorSubject<any>(null);
+  formData = new BehaviorSubject<any>(null);
   myFormData = this.formData.asObservable();
 
   setFormData(data: any): void {

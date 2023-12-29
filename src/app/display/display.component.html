@@ -1,37 +1,44 @@
 <div class="div1">
-  <mat-card class="card" >
-    <mat-form-field>
-      <input matInput placeholder="Search by Name" [(ngModel)]="searchTerm" (input)="searchProducts()">
-      <button id="sbtn" mat-raised-button>Search</button>
+  <mat-form-field  id="input1">
+  <input matInput placeholder="Search by Name" [(ngModel)]="searchTerm">
+  <button id="sbtn" mat-raised-button (click)="onSearch()">Search</button>
     </mat-form-field>
+  <mat-card class="card1">
     <mat-card-header>
       <mat-card-title>Product List</mat-card-title>
     </mat-card-header>
 
+    <mat-card-content *ngIf="isValid; else showAllItems">
+    <ul>
+      <li *ngFor="let arr1 of searchTerm; let d = index">
+        <p>
+          Name: {{ arr1?.name }}
+          <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
+        </p>
+        <p>Price: {{ arr1?.price }}</p>
+        <p>Category: {{ arr1?.category }}</p>
+      </li>
+    </ul>
+  </mat-card-content>
+  </mat-card>
+
+  <ng-template #showAllItems>
     <mat-card-content>
       <ul>
         <li *ngFor="let arr1 of formData; let d = index">
           <p>
             Name: {{ arr1?.name }}
-            <button  mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
+            <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
           </p>
           <p>Price: {{ arr1?.price }}</p>
           <p>Category: {{ arr1?.category }}</p>
         </li>
       </ul>
     </mat-card-content>
-  </mat-card>
+  </ng-template>
 </div>
-<!--  <h2>Display Component</h2>-->
-<!--&lt;!&ndash;  <input type="text" [(ngModel)]="searchTerm" placeholder="Enter search term">&ndash;&gt;-->
-<!--&lt;!&ndash;  <button (click)="onSearch()">Search</button>&ndash;&gt;-->
-<!--<div *ngFor="let arr of formData">-->
-<!--&lt;!&ndash;<h2>Display Component</h2>&ndash;&gt;-->
-<!--<p>{{ arr.name }}</p>-->
-<!--<p>{{ arr.price }}</p>-->
-<!--<p>{{ arr.category }}</p>-->
-<!--</div>-->
-<!--</div>-->
+
+
 <div class="div2">
   <mat-card class="card">
     <mat-card-header>

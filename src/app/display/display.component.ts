@@ -10,8 +10,9 @@ import {DataService} from "../data.service";
 export class DisplayComponent implements OnInit{
   categories: any[] = [];
   formData: any[] = [];
-  filteredData: any[] = [];
-  searchTerm: string = '';
+  searchTerm: any;
+  isValid:boolean=false;
+  filteredData:any;
 
   constructor(private dataService: DataService, private catService: CategoryService) {}
 
@@ -22,7 +23,6 @@ export class DisplayComponent implements OnInit{
           this.formData = [];
         }
         this.formData.push(newData);
-        this.searchProducts();
         console.log(this.formData);
       });
 
@@ -37,17 +37,17 @@ export class DisplayComponent implements OnInit{
     deleteProduct(num: number): void {
       if (this.formData.length) {
       this.formData.splice(num, 1);
-      this.searchProducts();
     }
   }
-
-    searchProducts(): void {
-      if (this.formData) {
-      this.filteredData = this.formData.filter(product =>
-        product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+  onSearch(): void {
+    // console.log(this.searchTerm);
+    if (this.formData) {
+      this.searchTerm = this.formData.filter(res =>
+        res.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
-    } else {
-      this.filteredData = [];
+      console.log(this.searchTerm);
+      this.isValid=true;
+      this.searchTerm.reset();
     }
   }
 
