@@ -1,0 +1,14 @@
+.div2
+{
+  position: relative;
+  left: 980px;
+  top: -980px;
+  width: 200px;
+  height: 200px;
+  /*background-color: lightskyblue;*/
+  color: black;
+}
+.card
+{
+  background-image: linear-gradient(to bottom right, #FDFCFB, #E2D1C3);
+}

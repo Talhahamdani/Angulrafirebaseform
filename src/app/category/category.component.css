@@ -2,4 +2,16 @@
 {
   position: relative;
   left: 125px;
+  top: -10px;
+}
+.span
+{
+  position: relative;
+  top: -20px;
+}
+.category
+{
+  position: relative;
+  top: -220px;
+  left: 110px;
 }

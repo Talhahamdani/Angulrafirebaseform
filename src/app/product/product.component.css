@@ -3,14 +3,14 @@
   position: relative;
   top: 10px;
   left: 20px;
-  width: 450px;
-  height: 530px;
+  width: 420px;
+  height: 610px;
   background-image: linear-gradient(to bottom right, #5761B2, #1FC5A8);
 }
 #all
 {
   position: relative;
-  left: 60px;
+  left: 90px;
   width: 400px;
   height: 530px;
 }
@@ -27,4 +27,10 @@
 {
   position: relative;
   left: 125px;
+  top: -10px;
+}
+.span
+{
+  position: relative;
+  top: -20px;
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CategoryService} from "../category.service";
-import {DataService} from "../data.service";
+import {DataService} from "../services/data.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-display',
@@ -8,13 +8,12 @@ import {DataService} from "../data.service";
   styleUrls: ['./display.component.css']
 })
 export class DisplayComponent implements OnInit{
-  categories: any[] = [];
   formData: any[] = [];
-  searchTerm: any;
   isValid:boolean=false;
-  filteredData:any;
+  searchForm: FormGroup;
+  filteredData: any[]= [];
 
-  constructor(private dataService: DataService, private catService: CategoryService) {}
+  constructor(private dataService: DataService,private fb: FormBuilder) {}
 
 
     ngOnInit(): void {
@@ -25,13 +24,12 @@ export class DisplayComponent implements OnInit{
         this.formData.push(newData);
         console.log(this.formData);
       });
-
-      this.catService.mycategories.subscribe(newCategories => {
-        this.categories = [...this.categories, ...newCategories];
+      this.searchForm = this.fb.group({
+        fieldName: ['']
       });
-
-      const storedCategories = localStorage.getItem('categories');
-      this.categories = storedCategories ? JSON.parse(storedCategories) : [];
+      this.searchForm.get('fieldName').valueChanges.subscribe((val) => {
+        this.onSearch(val);
+      });
     }
 
     deleteProduct(num: number): void {
@@ -39,16 +37,15 @@ export class DisplayComponent implements OnInit{
       this.formData.splice(num, 1);
     }
   }
-  onSearch(): void {
-    // console.log(this.searchTerm);
+  onSearch(myVal:any): void {
+    console.log(myVal);
+
     if (this.formData) {
-      this.searchTerm = this.formData.filter(res =>
-        res.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+     this.filteredData= this.formData.filter(res =>
+        res.name.toLowerCase().includes(myVal.toLowerCase())
       );
-      console.log(this.searchTerm);
-      this.isValid=true;
-      this.searchTerm.reset();
+     console.log(this.filteredData);
+      this.isValid = true;
     }
   }
-
 }

@@ -1,54 +1,36 @@
 <div class="div1">
-  <mat-form-field  id="input1">
-  <input matInput placeholder="Search by Name" [(ngModel)]="searchTerm">
-  <button id="sbtn" mat-raised-button (click)="onSearch()">Search</button>
+  <form [formGroup]="searchForm">
+    <mat-form-field id="input1">
+      <input matInput placeholder="Search by Name" formControlName="fieldName">
     </mat-form-field>
-  <mat-card class="card1">
-    <mat-card-header>
-      <mat-card-title>Product List</mat-card-title>
-    </mat-card-header>
+  </form>
 
-    <mat-card-content *ngIf="isValid; else showAllItems">
-    <ul>
-      <li *ngFor="let arr1 of searchTerm; let d = index">
+  <mat-card-content *ngIf="isValid; else showAllItems">
+    <div *ngFor="let arr1 of filteredData; let d = index" class="card-container">
+      <mat-card class="card">
         <p>
           Name: {{ arr1?.name }}
           <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
         </p>
         <p>Price: {{ arr1?.price }}</p>
         <p>Category: {{ arr1?.category }}</p>
-      </li>
-    </ul>
+      </mat-card>
+    </div>
   </mat-card-content>
-  </mat-card>
 
   <ng-template #showAllItems>
     <mat-card-content>
-      <ul>
-        <li *ngFor="let arr1 of formData; let d = index">
+      <div *ngFor="let arr1 of formData; let d = index" class="card-container">
+        <mat-card class="card">
           <p>
             Name: {{ arr1?.name }}
             <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
           </p>
           <p>Price: {{ arr1?.price }}</p>
           <p>Category: {{ arr1?.category }}</p>
-        </li>
-      </ul>
+        </mat-card>
+      </div>
     </mat-card-content>
   </ng-template>
 </div>
 
-
-<div class="div2">
-  <mat-card class="card">
-    <mat-card-header>
-      <mat-card-title>Category List</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <ul>
-        <li *ngFor="let category of categories">{{ category }}</li>
-      </ul>
-    </mat-card-content>
-  </mat-card>
-</div>

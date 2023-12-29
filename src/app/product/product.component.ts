@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryService} from "../category.service";
-import {DataService} from "../data.service";
+import {CategoryService} from "../services/category.service";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'app-product',
@@ -55,8 +55,7 @@ export class ProductComponent implements OnInit{
   }
 
   removeCategory(categoryToRemove: string): void {
-
     this.categories = this.categories.filter((category: string) => category !== categoryToRemove);
-
+    this.categoryService.setCategories(this.categories);
   }
 }

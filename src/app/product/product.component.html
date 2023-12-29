@@ -6,7 +6,8 @@
     <mat-label>Name</mat-label>
     <input matInput formControlName="name">
   </mat-form-field>
-  <span *ngIf="nameControl.invalid && nameControl.touched" style="color: red">
+  <br>
+  <span class='span' *ngIf="nameControl.invalid && nameControl.touched" style="color: red">
       *Name is required
     </span>
   <br>
@@ -14,8 +15,8 @@
   <mat-form-field>
     <mat-label>Price</mat-label>
     <input type="number" matInput formControlName="price">
-  </mat-form-field>
-  <span *ngIf="priceControl.invalid && priceControl.touched" style="color: red">
+  </mat-form-field><br>
+  <span class='span' *ngIf="priceControl.invalid && priceControl.touched" style="color: red">
       *Price is required
     </span>
   <br>
@@ -27,13 +28,13 @@
         <mat-icon matSuffix (click)="removeCategory(category)">clear</mat-icon></mat-option>
     </mat-select>
   </mat-form-field>
-  <span *ngIf="categoryControl.invalid && categoryControl.touched" style="color: red">
+  <br>
+  <span  class='span' *ngIf="categoryControl.invalid && categoryControl.touched" style="color: red">
       *Category is required
     </span>
   <br>
   <button class="mybtn" mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Submit</button>
 </form>
 <br><br>
-<app-category></app-category>
   </div>
 </div>

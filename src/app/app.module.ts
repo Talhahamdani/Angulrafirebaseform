@@ -9,13 +9,15 @@ import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DisplayComponent } from './display/display.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MaterialModule} from "./material/material/material.module";
+import { DisplaycategorylistComponent } from './displaycategorylist/displaycategorylist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
     CategoryComponent,
-    DisplayComponent
+    DisplayComponent,
+    DisplaycategorylistComponent
   ],
     imports: [
         BrowserModule,

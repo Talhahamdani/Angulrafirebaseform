@@ -5,7 +5,7 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class CategoryService {
-  categorySource = new BehaviorSubject<string[]>([]);
+  private categorySource = new BehaviorSubject<string[]>([]);
   mycategories = this.categorySource.asObservable();
 
 
