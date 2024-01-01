@@ -28,8 +28,9 @@ export class CategoryComponent implements OnInit{
       const categories: string[] = [catName];
       this.categoryService.setCategories(categories);
       this.categoryForm.reset();
-    } else {
-      this.categoryForm.markAllAsTouched();
+      Object.keys(this.categoryForm.controls).forEach(key => {
+        this.categoryForm.controls[key].setErrors(null)
+      });
     }
-  }
+    }
 }

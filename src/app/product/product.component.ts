@@ -52,6 +52,9 @@ export class ProductComponent implements OnInit{
     } else {
       this.productForm.markAllAsTouched();
     }
+    Object.keys(this.productForm.controls).forEach(key => {
+      this.productForm.controls[key].setErrors(null)
+    });
   }
 
   removeCategory(categoryToRemove: string): void {

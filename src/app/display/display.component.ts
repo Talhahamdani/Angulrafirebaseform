@@ -18,7 +18,7 @@ export class DisplayComponent implements OnInit{
 
     ngOnInit(): void {
       this.dataService.myFormData.subscribe(newData => {
-        if (!Array.isArray(this.formData)) {
+        if (this.formData===null) {
           this.formData = [];
         }
         this.formData.push(newData);
@@ -41,8 +41,8 @@ export class DisplayComponent implements OnInit{
     console.log(myVal);
 
     if (this.formData) {
-     this.filteredData= this.formData.filter(res =>
-        res.name.toLowerCase().includes(myVal.toLowerCase())
+      this.filteredData = this.formData.filter(res =>
+        res && res.name && res.name.toLowerCase().includes(this.searchForm.get('fieldName').value.toLowerCase())
       );
      console.log(this.filteredData);
       this.isValid = true;

@@ -8,12 +8,14 @@
   <mat-card-content *ngIf="isValid; else showAllItems">
     <div *ngFor="let arr1 of filteredData; let d = index" class="card-container">
       <mat-card class="card">
-        <p>
-          Name: {{ arr1?.name }}
-          <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
-        </p>
-        <p>Price: {{ arr1?.price }}</p>
-        <p>Category: {{ arr1?.category }}</p>
+        <ng-container *ngIf="arr1">
+          <p>
+            Name: {{ arr1.name }}
+            <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
+          </p>
+          <p>Price: {{ arr1.price }}</p>
+          <p>Category: {{ arr1.category }}</p>
+        </ng-container>
       </mat-card>
     </div>
   </mat-card-content>
@@ -22,12 +24,14 @@
     <mat-card-content>
       <div *ngFor="let arr1 of formData; let d = index" class="card-container">
         <mat-card class="card">
-          <p>
-            Name: {{ arr1?.name }}
-            <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
-          </p>
-          <p>Price: {{ arr1?.price }}</p>
-          <p>Category: {{ arr1?.category }}</p>
+          <ng-container *ngIf="arr1">
+            <p>
+              Name: {{ arr1.name }}
+              <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
+            </p>
+            <p>Price: {{ arr1.price }}</p>
+            <p>Category: {{ arr1.category }}</p>
+          </ng-container>
         </mat-card>
       </div>
     </mat-card-content>
