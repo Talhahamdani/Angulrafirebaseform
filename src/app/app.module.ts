@@ -10,6 +10,13 @@ import {DisplayComponent } from './display/display.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MaterialModule} from "./material/material/material.module";
 import { DisplaycategorylistComponent } from './displaycategorylist/displaycategorylist.component';
+import {AngularFireModule} from "@angular/fire/compat";
+import {environment} from "./environments";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+
+
+
 
 @NgModule({
   declarations: [
@@ -26,7 +33,10 @@ import { DisplaycategorylistComponent } from './displaycategorylist/displaycateg
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-        MaterialModule
+        MaterialModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireStorageModule
 
     ],
   providers: [],

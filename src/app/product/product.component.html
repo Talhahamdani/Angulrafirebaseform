@@ -24,7 +24,7 @@
   <mat-form-field class="cat">
     <mat-label>Category</mat-label>
     <mat-select formControlName="category">
-      <mat-option *ngFor="let category of categories" [value]="category">{{ category }}
+      <mat-option *ngFor="let category of categories" [value]="category">{{ category.cat }}
         <mat-icon matSuffix (click)="removeCategory(category)">clear</mat-icon></mat-option>
     </mat-select>
   </mat-form-field>
@@ -32,7 +32,10 @@
   <span  class='span' *ngIf="categoryControl.invalid && categoryControl.touched" style="color: red">
       *Category is required
     </span>
-  <br>
+<!--  <br>-->
+  <label >Upload File:</label>
+  <input type="file" id="uploadFile" accept="image/*" (change)="onFileSelected($event)"/>
+  <br><br>
   <button class="mybtn" mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Submit</button>
 </form>
 <br><br>

@@ -5,11 +5,11 @@
     <mat-label>Category Name</mat-label>
     <input matInput formControlName="catName">
   </mat-form-field><br>
-  <span class='span' *ngIf="catNameControl.invalid && catNameControl.touched" style="color: red">
+  <span class='span' *ngIf="catNameControl.invalid &&catNameControl.touched" style="color: red">
       *CategoryName is required
     </span>
    <br>
-  <button class="mybtn" mat-raised-button color="primary" type="submit">
+  <button class="mybtn" mat-raised-button color="primary" type="submit" >
     Submit
   </button>
 </form>

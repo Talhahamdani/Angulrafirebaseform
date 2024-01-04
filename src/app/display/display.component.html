@@ -11,10 +11,12 @@
         <ng-container *ngIf="arr1">
           <p>
             Name: {{ arr1.name }}
-            <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
           </p>
           <p>Price: {{ arr1.price }}</p>
-          <p>Category: {{ arr1.category }}</p>
+          <p>Category: {{ arr1.category.cat }}</p>
+          <div>
+            <img [src]="arr1.url" alt="Product Image" height="70px" width="70px">
+          </div>
         </ng-container>
       </mat-card>
     </div>
@@ -27,10 +29,13 @@
           <ng-container *ngIf="arr1">
             <p>
               Name: {{ arr1.name }}
-              <button mat-button color="warn" (click)="deleteProduct(d)">Delete</button>
             </p>
             <p>Price: {{ arr1.price }}</p>
-            <p>Category: {{ arr1.category }}</p>
+            <p>Category: {{ arr1.category.cat }}</p>
+
+            <div>
+              <img [src]="arr1.url" alt="Product Image" height="70px" width="70px">
+            </div>
           </ng-container>
         </mat-card>
       </div>

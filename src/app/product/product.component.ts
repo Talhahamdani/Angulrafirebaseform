@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoryService} from "../services/category.service";
 import {DataService} from "../services/data.service";
+import {AngularFireStorage} from "@angular/fire/compat/storage";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+// import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-product',
@@ -10,10 +13,13 @@ import {DataService} from "../services/data.service";
 })
 export class ProductComponent implements OnInit{
   productForm: FormGroup;
-  categories: any=[]
+  categories: any=[];
+  // fbData:any;
+  selectedFile: File | null = null;
 
 
-  constructor(private fb: FormBuilder,private categoryService: CategoryService,private dataService: DataService) {}
+
+  constructor(private fireStore:AngularFirestore ,private fb: FormBuilder,private categoryService: CategoryService,private dataService: DataService,private fireStorage:AngularFireStorage) {}
 
   get nameControl() {
     return this.productForm.get('name');
@@ -27,38 +33,67 @@ export class ProductComponent implements OnInit{
     return this.productForm.get('category');
   }
 
+
   ngOnInit(): void {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
       category: ['', Validators.required]
+      // uploadFile: [null, Validators.required]
+    });
+    this.categoryService.getCollectionData("categories").subscribe(firebaseData => {
+      console.log('Category List:', firebaseData);
+      this.categories = firebaseData;
     });
 
-    this.categoryService.mycategories.subscribe(newCategories => {
+    // this.categoryService.mycategories.subscribe(newCategories => {
+    //
+    //   this.categories = [newCategories];
+    //
+    // });
 
-      this.categories = [...this.categories,...newCategories];
-
-    });
-
-    const storedCategories = localStorage.getItem('categories');
-    this.categories = storedCategories ? JSON.parse(storedCategories) : [];
+    // const storedCategories = localStorage.getItem('categories');
+    // this.categories = storedCategories ? JSON.parse(storedCategories) : [];
   }
-  onSubmit(): void {
-    if (this.productForm.valid) {
-      const formData = this.productForm.value;
-      // this.submittedData.push(formData);
-      this.dataService.setFormData(formData);
-      this.productForm.reset();
+  async onSubmit(): Promise<void> {
+    if (this.selectedFile) {
+      const path = `th/${this.selectedFile.name}`;
+
+      try {
+
+        const uploadTask = await this.fireStorage.upload(path, this.selectedFile);
+        const url = await uploadTask.ref.getDownloadURL();
+        console.log(url);
+
+        if (this.productForm.valid) {
+          this.fireStore.collection('product').add({url: await url, ...this.productForm.value});
+
+          this.productForm.reset();
+          this.selectedFile = null;
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
     } else {
       this.productForm.markAllAsTouched();
     }
-    Object.keys(this.productForm.controls).forEach(key => {
-      this.productForm.controls[key].setErrors(null)
-    });
   }
 
-  removeCategory(categoryToRemove: string): void {
+  removeCategory(categoryToRemove:string): void {
     this.categories = this.categories.filter((category: string) => category !== categoryToRemove);
-    this.categoryService.setCategories(this.categories);
+    // this.categoryService.setCategories(this.categories)
+   console.log(this.categories)
   }
+   onFileSelected(event: any):void {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      console.log('My SelectedFile:', this.selectedFile);
+    }
+  }
+    // if (file) {
+    //   const path = `th/${file.name}`;
+    //   const uploadTask = await this.fireStorage.upload(path, file);
+    //   const url = await uploadTask.ref.getDownloadURL();
+    //   console.log(url);
+    // }
 }

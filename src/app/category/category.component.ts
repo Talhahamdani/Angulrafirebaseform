@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoryService} from "../services/category.service";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-category',
@@ -11,7 +12,7 @@ export class CategoryComponent implements OnInit{
 
   categoryForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private categoryService: CategoryService) {}
+  constructor(private fireStore:AngularFirestore,private fb: FormBuilder, private categoryService: CategoryService) {}
 
   get catNameControl() {
     return this.categoryForm.get('catName');
@@ -26,11 +27,13 @@ export class CategoryComponent implements OnInit{
     if (this.categoryForm.valid) {
       const catName = this.catNameControl.value;
       const categories: string[] = [catName];
-      this.categoryService.setCategories(categories);
+      // this.categoryService.setCategories(categories);
+      this.fireStore.collection("categories").add({ cat: catName });
+      // this.categoryService.createCategory(categories);
       this.categoryForm.reset();
-      Object.keys(this.categoryForm.controls).forEach(key => {
-        this.categoryForm.controls[key].setErrors(null)
-      });
+      // Object.keys(this.categoryForm.controls).forEach(key => {
+      //   this.categoryForm.controls[key].setErrors(null)
+      // });
     }
-    }
+  }
 }
