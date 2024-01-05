@@ -31,12 +31,12 @@ export class CategoryComponent implements OnInit {
 
       this.fireStore.collection("categories").add({cat: catName})
           .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
+            console.log("Document ref with id ", docRef.id);
 
             docRef.update({id: docRef.id});
           })
           .catch((error) => {
-            console.error("Error adding document: ", error);
+            console.error("Error adding document ", error);
           });
 
       this.categoryForm.reset();
