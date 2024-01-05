@@ -29,13 +29,10 @@ export class CategoryComponent implements OnInit {
     if (this.categoryForm.valid) {
       const catName = this.catNameControl.value;
 
-      // Add the category to Firestore with an auto-generated ID
       this.fireStore.collection("categories").add({cat: catName})
           .then((docRef) => {
-            // Log the auto-generated ID
             console.log("Document written with ID: ", docRef.id);
 
-            // Update the document with the auto-generated ID
             docRef.update({id: docRef.id});
           })
           .catch((error) => {
