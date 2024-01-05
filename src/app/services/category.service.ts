@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {doc} from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,12 @@ export class CategoryService {
   constructor(private fireStore:AngularFirestore) { }
 
 
-  // setCategories(categories: any[]): void{
-  //   // this.categorySource.next(categories);
-  //   console.log(categories)
-  //   // return this.fireStore.collection('categories').valueChanges();
-  //   // console.log(this.categories)
-  // }
+  setCategories(categories: any[]): void{
+    // this.categorySource.next(categories);
+    console.log(categories)
+     this.fireStore.collection('categories').valueChanges();
+    // console.log(this.categories)
+  }
 
   // createCategory(category: any): void {
   //   category.forEach(catName => {
@@ -29,7 +30,11 @@ export class CategoryService {
     console.log(categoryList);
     return this.fireStore.collection("categories").valueChanges();
   }
-
+  deleteCategory(categoryList: any)
+  {
+    console.log(categoryList)
+    return this.fireStore.collection('categories').doc(categoryList).delete()
+  }
   //   getFormData(formData: any[]): void {
   //     const formDataArray = [formData];
   //     formDataArray.map(formData => {

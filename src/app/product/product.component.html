@@ -36,6 +36,9 @@
   <label >Upload File:</label>
   <input type="file" id="uploadFile" accept="image/*" (change)="onFileSelected($event)"/>
   <br><br>
+  <div class="spiner" *ngIf="uploading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
   <button class="mybtn" mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Submit</button>
 </form>
 <br><br>

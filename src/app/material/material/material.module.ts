@@ -5,10 +5,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 const MyMaterial=[MatButtonModule,MatIconModule, MatSelectModule,
-  MatCardModule,MatFormFieldModule,MatInputModule,];
+  MatCardModule,MatFormFieldModule,MatInputModule,MatProgressSpinnerModule];
 @NgModule({
   imports: [MyMaterial],
   exports:[MyMaterial]

@@ -8,15 +8,17 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit{
+export class CategoryComponent implements OnInit {
 
   categoryForm: FormGroup;
 
-  constructor(private fireStore:AngularFirestore,private fb: FormBuilder, private categoryService: CategoryService) {}
+  constructor(private fireStore: AngularFirestore, private fb: FormBuilder, private categoryService: CategoryService) {
+  }
 
   get catNameControl() {
     return this.categoryForm.get('catName');
   }
+
   ngOnInit(): void {
     this.categoryForm = this.fb.group({
       catName: ['', Validators.required]
@@ -26,14 +28,21 @@ export class CategoryComponent implements OnInit{
   onSubmit(): void {
     if (this.categoryForm.valid) {
       const catName = this.catNameControl.value;
-      const categories: string[] = [catName];
-      // this.categoryService.setCategories(categories);
-      this.fireStore.collection("categories").add({ cat: catName });
-      // this.categoryService.createCategory(categories);
+
+      // Add the category to Firestore with an auto-generated ID
+      this.fireStore.collection("categories").add({cat: catName})
+          .then((docRef) => {
+            // Log the auto-generated ID
+            console.log("Document written with ID: ", docRef.id);
+
+            // Update the document with the auto-generated ID
+            docRef.update({id: docRef.id});
+          })
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+          });
+
       this.categoryForm.reset();
-      // Object.keys(this.categoryForm.controls).forEach(key => {
-      //   this.categoryForm.controls[key].setErrors(null)
-      // });
     }
   }
 }

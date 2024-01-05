@@ -9,13 +9,13 @@
     <div *ngFor="let arr1 of filteredData; let d = index" class="card-container">
       <mat-card class="card">
         <ng-container *ngIf="arr1">
-          <p>
+          <mat-card-title>
             Name: {{ arr1.name }}
-          </p>
+          </mat-card-title>
           <p>Price: {{ arr1.price }}</p>
           <p>Category: {{ arr1.category.cat }}</p>
           <div>
-            <img [src]="arr1.url" alt="Product Image" height="70px" width="70px">
+            <img [src]="arr1.url" alt="Product Image" height="130px" width="150px">
           </div>
         </ng-container>
       </mat-card>
@@ -27,14 +27,14 @@
       <div *ngFor="let arr1 of formData; let d = index" class="card-container">
         <mat-card class="card">
           <ng-container *ngIf="arr1">
-            <p>
-              Name: {{ arr1.name }}
-            </p>
+            <mat-card-title>
+              {{ arr1.name }}
+            </mat-card-title>
             <p>Price: {{ arr1.price }}</p>
             <p>Category: {{ arr1.category.cat }}</p>
 
             <div>
-              <img [src]="arr1.url" alt="Product Image" height="70px" width="70px">
+              <img [src]="arr1.url" alt="Product Image"  height="180px" width="250px">
             </div>
           </ng-container>
         </mat-card>

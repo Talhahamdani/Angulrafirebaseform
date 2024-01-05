@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit{
   categories: any=[];
   // fbData:any;
   selectedFile: File | null = null;
+  uploading: boolean = false;
 
 
 
@@ -60,7 +61,7 @@ export class ProductComponent implements OnInit{
       const path = `th/${this.selectedFile.name}`;
 
       try {
-
+        this.uploading = true;
         const uploadTask = await this.fireStorage.upload(path, this.selectedFile);
         const url = await uploadTask.ref.getDownloadURL();
         console.log(url);
@@ -74,15 +75,21 @@ export class ProductComponent implements OnInit{
       } catch (error) {
         console.error('Error uploading file:', error);
       }
+     finally {
+      this.uploading = false;
+    }
     } else {
       this.productForm.markAllAsTouched();
     }
   }
 
-  removeCategory(categoryToRemove:string): void {
-    this.categories = this.categories.filter((category: string) => category !== categoryToRemove);
-    // this.categoryService.setCategories(this.categories)
-   console.log(this.categories)
+  removeCategory(categoryToRemove:any): void {
+    this.categories = this.categories.filter((category: any) => category !== categoryToRemove);
+    // this.categoryService.setCategories(categoryToRemove)
+      this.fireStore.collection('categories').doc(categoryToRemove.id).delete();
+      console.log(categoryToRemove)
+
+      console.log(this.categories)
   }
    onFileSelected(event: any):void {
     this.selectedFile = event.target.files[0];

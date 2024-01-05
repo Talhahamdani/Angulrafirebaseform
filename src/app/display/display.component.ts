@@ -49,5 +49,4 @@ export class DisplayComponent implements OnInit{
       this.isValid = true;
     }
   }
-
 }
