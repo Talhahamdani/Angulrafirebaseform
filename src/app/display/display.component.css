@@ -32,7 +32,7 @@
   position: relative;
   top: -20px;
   background-image: linear-gradient(to bottom right, #FDFCFB, #E2D1C3);
-  bottom: 5px;
+  margin-bottom: 10px;
 }
 /*.card1*/
 /*{*/
