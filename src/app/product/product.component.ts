@@ -4,6 +4,8 @@ import {CategoryService} from "../services/category.service";
 import {DataService} from "../services/data.service";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {ConfirmdialogComponent} from "../confirmdialog/confirmdialog.component";
+import {MatDialog} from "@angular/material/dialog";
 // import {Observable} from "rxjs";
 
 @Component({
@@ -20,7 +22,7 @@ export class ProductComponent implements OnInit{
 
 
 
-  constructor(private fireStore:AngularFirestore ,private fb: FormBuilder,private categoryService: CategoryService,private dataService: DataService,private fireStorage:AngularFireStorage) {}
+  constructor(private dialog: MatDialog,private fireStore:AngularFirestore ,private fb: FormBuilder,private categoryService: CategoryService,private dataService: DataService,private fireStorage:AngularFireStorage) {}
 
   get nameControl() {
     return this.productForm.get('name');
@@ -67,7 +69,12 @@ export class ProductComponent implements OnInit{
         console.log(url);
 
         if (this.productForm.valid) {
-          this.fireStore.collection('product').add({url: await url, ...this.productForm.value});
+          const docRef = await this.fireStore.collection('product').add({
+            url: url,
+            ...this.productForm.value
+          });
+          const productId = docRef.id;
+          await this.fireStore.collection('product').doc(productId).update({ productId });
 
           this.productForm.reset();
           this.selectedFile = null;
@@ -75,22 +82,31 @@ export class ProductComponent implements OnInit{
       } catch (error) {
         console.error('Error uploading file:', error);
       }
-     finally {
-      this.uploading = false;
-    }
+      finally {
+        this.uploading = false;
+      }
     } else {
       this.productForm.markAllAsTouched();
     }
   }
 
-  removeCategory(categoryToRemove:any): void {
-    this.categories = this.categories.filter((category: any) => category !== categoryToRemove);
-    // this.categoryService.setCategories(categoryToRemove)
+  async removeCategory(categoryToRemove: any): Promise<void> {
+    const dialogRef = this.dialog.open(ConfirmdialogComponent);
+    const result = await dialogRef.afterClosed().toPromise();
+    if (result === true) {
+      this.categoryService = this.categories.filter((category: any) => category !== categoryToRemove);
       this.fireStore.collection('categories').doc(categoryToRemove.id).delete();
-      console.log(categoryToRemove)
-
-      console.log(this.categories)
+    }
   }
+
+  // removeCategory(categoryToRemove:any): void {
+  //   //   this.categories = this.categories.filter((category: any) => category !== categoryToRemove);
+  //   //   // this.categoryService.setCategories(categoryToRemove)
+  //   //     this.fireStore.collection('categories').doc(categoryToRemove.id).delete();
+  //   //     console.log(categoryToRemove)
+  //   //
+  //   //     console.log(this.categories)
+  //   // }
    onFileSelected(event: any):void {
     this.selectedFile = event.target.files[0];
     if (this.selectedFile) {

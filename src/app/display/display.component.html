@@ -10,12 +10,12 @@
       <mat-card class="card">
         <ng-container *ngIf="arr1">
           <mat-card-title>
-            Name: {{ arr1.name }}
+            {{ arr1.name }}
           </mat-card-title>
           <p>Price: {{ arr1.price }}</p>
           <p>Category: {{ arr1.category.cat }}</p>
           <div>
-            <img [src]="arr1.url" alt="Product Image" height="130px" width="150px">
+            <img [src]="arr1.url" alt="Product Image" height="180px" width="368px">
           </div>
         </ng-container>
       </mat-card>
@@ -30,11 +30,12 @@
             <mat-card-title>
               {{ arr1.name }}
             </mat-card-title>
+            <button mat-raised-button id="btnR" (click)=" removeProduct(arr1)">Delete</button>
             <p>Price: {{ arr1.price }}</p>
             <p>Category: {{ arr1.category.cat }}</p>
 
             <div>
-              <img [src]="arr1.url" alt="Product Image"  height="180px" width="250px">
+              <img [src]="arr1.url" alt="Product Image"  height="180px" width="368px">
             </div>
           </ng-container>
         </mat-card>

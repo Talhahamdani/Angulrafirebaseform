@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from "../services/data.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmdialogComponent} from "../confirmdialog/confirmdialog.component";
 // import {CategoryService} from "../services/category.service";
 // import {AngularFireStorage} from "@angular/fire/compat/storage";
 
@@ -15,15 +18,15 @@ export class DisplayComponent implements OnInit{
   searchForm: FormGroup;
   filteredData: any[] = [];
   // imageUrl: string | null = null;
+  product: any;
 
-  constructor(private fb: FormBuilder,private dataService: DataService) {}
+  constructor( private dialog: MatDialog,private fb: FormBuilder,private dataService: DataService,private fireStore:AngularFirestore) {}
 
   ngOnInit(): void {
     this.dataService.fetchData('product').subscribe((firebaseData) => {
       console.log('Product List:', firebaseData);
       this.formData = firebaseData;
     });
-
     this.searchForm = this.fb.group({
       fieldName: ['']
     });
@@ -49,4 +52,21 @@ export class DisplayComponent implements OnInit{
       this.isValid = true;
     }
   }
+  async removeProduct(productToRemove: any): Promise<void> {
+    const dialogRef = this.dialog.open(ConfirmdialogComponent);
+    const result = await dialogRef.afterClosed().toPromise();
+    if (result === true) {
+      this.formData = this.formData.filter((product: any) => product !== productToRemove);
+      this.fireStore.collection('product').doc(productToRemove.productId).delete();
+    }
+  }
+
+  // removeProduct(productToRemove:any): void {
+  //   this.formData = this.formData.filter((product: any) => product !== productToRemove);
+  //   // this.categoryService.setCategories(categoryToRemove)
+  //    this.fireStore.collection('product').doc(productToRemove.productId).delete();
+  //   console.log(productToRemove)
+  //
+  //   console.log(productToRemove)
+  // }
 }

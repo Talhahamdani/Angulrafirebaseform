@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, catchError, Observable, of} from "rxjs";
+// import {BehaviorSubject} from "rxjs";
+import {Observable} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AngularFireStorage, AngularFireStorageReference} from "@angular/fire/compat/storage";
 
@@ -7,8 +8,8 @@ import {AngularFireStorage, AngularFireStorageReference} from "@angular/fire/com
   providedIn: 'root'
 })
 export class DataService {
-  formData = new BehaviorSubject<any>(null);
-  myFormData = this.formData.asObservable();
+  // formData = new BehaviorSubject<any>(null);
+  // myFormData = this.formData.asObservable();
   // private imageUrlSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   // imageUrl$: Observable<string | null> = this.imageUrlSubject.asObservable();
 

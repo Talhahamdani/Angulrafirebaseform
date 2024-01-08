@@ -14,6 +14,7 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "./environments";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component';
 
 
 
@@ -24,7 +25,8 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
     ProductComponent,
     CategoryComponent,
     DisplayComponent,
-    DisplaycategorylistComponent
+    DisplaycategorylistComponent,
+    ConfirmdialogComponent
   ],
     imports: [
         BrowserModule,

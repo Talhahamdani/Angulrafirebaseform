@@ -56,3 +56,11 @@
   position: relative;
   left: 200px;
 }
+#btnR
+{
+  width: 60px;
+  position: relative;
+  left: 300px;
+  top: -25px;
+  background-image: linear-gradient(to bottom right, #FDFCFB, #E2D1C3);
+}
