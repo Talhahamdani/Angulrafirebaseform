@@ -61,6 +61,16 @@
   width: 60px;
   position: relative;
   left: 300px;
-  top: -25px;
+  top: -100px;
   background-image: linear-gradient(to bottom right, #FDFCFB, #E2D1C3);
+}
+.content
+{
+  position: relative;
+  top: -20px;
+}
+.share
+{
+  position: relative;
+  left: 210px;
 }

@@ -9,14 +9,22 @@
     <div *ngFor="let arr1 of filteredData; let d = index" class="card-container">
       <mat-card class="card">
         <ng-container *ngIf="arr1">
-          <mat-card-title>
-            {{ arr1.name }}
-          </mat-card-title>
-          <p>Price: {{ arr1.price }}</p>
-          <p>Category: {{ arr1.category.cat }}</p>
-          <div>
-            <img [src]="arr1.url" alt="Product Image" height="180px" width="368px">
-          </div>
+          <mat-card-header>
+            <mat-card-title>
+              {{ arr1.name }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              <p>Category: {{ arr1.category.cat }}</p>
+              <p>Price: {{ arr1.price }}</p>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <img [src]="arr1.url" alt="Product Image" height="180px" width="330px">
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button  class="share" mat-button>SHARE</button>
+          </mat-card-actions>
         </ng-container>
       </mat-card>
     </div>
@@ -27,16 +35,25 @@
       <div *ngFor="let arr1 of formData; let d = index" class="card-container">
         <mat-card class="card">
           <ng-container *ngIf="arr1">
+            <mat-card-header>
             <mat-card-title>
               {{ arr1.name }}
             </mat-card-title>
+              <mat-card-subtitle>
+                <p>Category: {{ arr1.category.cat }}</p>
+                <p>Price: {{ arr1.price }}</p>
+              </mat-card-subtitle>
+            </mat-card-header>
             <button mat-raised-button id="btnR" (click)=" removeProduct(arr1)">Delete</button>
-            <p>Price: {{ arr1.price }}</p>
-            <p>Category: {{ arr1.category.cat }}</p>
-
-            <div>
-              <img [src]="arr1.url" alt="Product Image"  height="180px" width="368px">
-            </div>
+<!--            <p>Price: {{ arr1.price }}</p>-->
+<!--            <p>Category: {{ arr1.category.cat }}</p>-->
+            <mat-card-content class="content">
+              <img  [src]="arr1.url" alt="Product Image"  height="180px" width="330px">
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button class="share" mat-button>SHARE</button>
+            </mat-card-actions>
           </ng-container>
         </mat-card>
       </div>
